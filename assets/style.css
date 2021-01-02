@@ -1,0 +1,122 @@
+
+
+.container{
+    width:100%;
+    max-width: 1200px;
+    padding:0 30px;
+    margin:0 auto;
+}
+
+.game__field{
+    display:flex;
+}
+
+.game__choose{
+    display: flex;
+    background-color: grey;
+    height: 150px;
+    width:300px;
+    padding:10px;
+    border:2px solid blue;
+    border-radius:5%;
+}
+
+
+.field-wripper{
+    
+    
+    width: 300px;
+    height: auto;
+    color:red;
+    margin:0 auto;
+    
+}
+
+.string{
+    display: flex;
+}
+
+.str,.column{
+    border:1px solid black;
+}
+
+.str{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  cursor: pointer;
+    width:33.33333%;
+    height:100px;
+}
+
+.str:hover{
+    border:1px solid yellow;
+}
+
+.round,.small-round{
+    
+    border: 2px solid red;
+    border-radius: 50%;
+    width:70px;
+  height: 70px;
+  margin: 0 auto;
+
+}
+
+.cross,.small-cross{
+    
+    margin:0 auto;
+}
+
+
+
+
+.hide{
+    display:none;
+}
+
+.cross:after,.small-cross:after{
+    content: "";
+    display: block;
+    width:70px;
+    height: 3px;
+    background-color:red;
+    transform: rotate(45deg);
+}
+
+.cross:before,.small-cross:before{
+    content: "";
+    display: block;
+    width:70px;
+    height: 3px;
+    background-color:red;
+    transform: rotate(-45deg);
+}
+
+
+.round.--small-round, .cross.--small-cross{
+    display:block;
+    margin: 0 ;
+    margin-right:70px;
+}
+
+.round.--small-round{
+    margin-bottom:10px;
+}
+
+.rounds,.crosses{
+    display: flex;
+}
+
+.rounds{
+    margin-bottom:30px;
+}
+
+#small_round{
+    margin-bottom:60px;
+
+}
+
+
+
+
