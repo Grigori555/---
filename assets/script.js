@@ -61,7 +61,7 @@ console.log(str)
             element.children[0].classList.remove("hide"); // 0
             // element.children[1].classList.add("hide"); //1
             if(element.children[1]){
-            element.removeChild(element.children[1])
+            element.children[1].classList.add("hide");
         }
             
     
@@ -70,7 +70,7 @@ console.log(str)
             element.children[1].classList.remove("hide"); //1
             // element.children[0].classList.add("hide"); //0
             if(element.children[0]){
-            element.removeChild(element.children[0]);
+                element.children[0].classList.add("hide");
             }
         }
     })
@@ -79,14 +79,23 @@ console.log(str)
 
 
 //  сброс игры
+button.source.onclick = ()=>{
 
+    
+        str.forEach((element)=>{
+            button.resetGame(element.children[0]);
+            button.resetGame(element.children[1]);
+      
+        })
+       
+    }
 
 // button.source.onclick = ()=>{
 
 
 //     str.forEach((element)=>{
 //        element.children[0].classList.add("hide");
-      
+//        element.children[1].classList.add("hide");
 //     })
    
 // }
