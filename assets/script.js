@@ -86,35 +86,55 @@ const countResult = new Array([
                 element.children[0].classList.add("hide");
             }
         }
-     
-        countResult[index]=1;  // запись ходов
-        // горизонт
+        
+  // Сценарии
+
+  // Запись ходов
+            if((element.children[0].classList.contains("hide")===false)
+            && element.children[1].classList.contains("hide")){
+
+            
+        countResult[index]=1;  // запись ходов X
+      
+            } else if ((element.children[1].classList.contains("hide")===false)
+            && element.children[0].classList.contains("hide")){
+                countResult[index]=-1;  // запись ходов 0
+
+            }
+
+              // горизонт
        case1 = countResult[0]+countResult[1]+ countResult[2];
-        case2 =countResult[3]+countResult[4]+ countResult[5];
-        case3 =countResult[6]+countResult[7]+ countResult[8];
-        // вертикаль
-         case4 =countResult[0]+countResult[3]+ countResult[6];
-         case5 =countResult[1]+countResult[4]+ countResult[7];
-         case6 =countResult[2]+countResult[5]+ countResult[8];
-        // диагонали
-         case7 =countResult[0]+countResult[4]+ countResult[8];
-        case8 =countResult[2]+countResult[4]+ countResult[6];
-       
-        messageWin(case1);
-        messageWin(case2);
-        messageWin(case3);
-        messageWin(case4);
-        messageWin(case5);
-        messageWin(case6);
-        messageWin(case7);
-        messageWin(case8);
+       case2 =countResult[3]+countResult[4]+ countResult[5];
+       case3 =countResult[6]+countResult[7]+ countResult[8];
+       // вертикаль
+        case4 =countResult[0]+countResult[3]+ countResult[6];
+        case5 =countResult[1]+countResult[4]+ countResult[7];
+        case6 =countResult[2]+countResult[5]+ countResult[8];
+       // диагонали
+        case7 =countResult[0]+countResult[4]+ countResult[8];
+       case8 =countResult[2]+countResult[4]+ countResult[6];
+      
+       messageWin(case1);
+       messageWin(case2);
+       messageWin(case3);
+       messageWin(case4);
+       messageWin(case5);
+       messageWin(case6);
+       messageWin(case7);
+       messageWin(case8);
         // Информация для модального окна
         function messageWin(num){
+            
                  if(num===3){
-                     alert("Победа");
+                     alert("Победа крестиков");
 
                      countResult[index] = 0// очистка массива
                      
+                 } else if (num===-3){
+                    alert("Победа ноликов");
+
+                    countResult[index] = 0// очистка массива
+                    
                  }
              }
 
