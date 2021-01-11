@@ -21,6 +21,14 @@
     border-radius:5%;
 }
 
+.scores{
+    display:flex;
+    margin-left:20px;
+    flex-direction: column;
+
+
+}
+
 
 .field-wripper{
     

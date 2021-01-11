@@ -55,7 +55,11 @@ inputCross.addEventListener("click",()=>{
 
 // Score - счетчик ходов
 
-const countResult = new Array([
+const countResultX = new Array([
+    0,0,0,0,0,0,0,0,0
+])
+
+const countResult0 = new Array([
     0,0,0,0,0,0,0,0,0
 ])
 
@@ -68,10 +72,11 @@ const countResult = new Array([
 // вывод  фигур
  str.forEach((element,index)=>{
     element.addEventListener("click",()=>{
+        
         if(cross.hasAttribute("checked")){
             element.children[0].classList.remove("hide"); // 0
            
-        
+           
             
             if(element.children[1]){
             element.children[1].classList.add("hide");
@@ -85,7 +90,7 @@ const countResult = new Array([
             if(element.children[0]){
                 element.children[0].classList.add("hide");
             }
-        }
+        }    console.log(element.children[0])
         
   // Сценарии
 
@@ -94,46 +99,64 @@ const countResult = new Array([
             && element.children[1].classList.contains("hide")){
 
             
-        countResult[index]=1;  // запись ходов X
+      countResultX[index]=1;  // запись ходов X
       
             } else if ((element.children[1].classList.contains("hide")===false)
             && element.children[0].classList.contains("hide")){
-                countResult[index]=-1;  // запись ходов 0
+        countResult0[index]=1;  // запись ходов 0
 
             }
-
+           // Случаи для X
               // горизонт
-       case1 = countResult[0]+countResult[1]+ countResult[2];
-       case2 =countResult[3]+countResult[4]+ countResult[5];
-       case3 =countResult[6]+countResult[7]+ countResult[8];
+       caseX1 = countResultX[0]+countResultX[1]+ countResultX[2];
+       caseX2 =countResultX[3]+countResultX[4]+ countResultX[5];
+       caseX3 =countResultX[6]+countResultX[7]+ countResultX[8];
        // вертикаль
-        case4 =countResult[0]+countResult[3]+ countResult[6];
-        case5 =countResult[1]+countResult[4]+ countResult[7];
-        case6 =countResult[2]+countResult[5]+ countResult[8];
+        caseX4 =countResultX[0]+countResultX[3]+ countResultX[6];
+        caseX5 =countResultX[1]+countResultX[4]+ countResultX[7];
+        caseX6 =countResultX[2]+countResultX[5]+ countResultX[8];
        // диагонали
-        case7 =countResult[0]+countResult[4]+ countResult[8];
-       case8 =countResult[2]+countResult[4]+ countResult[6];
+        caseX7 =countResultX[0]+countResultX[4]+ countResultX[8];
+       caseX8 =countResultX[2]+countResultX[4]+ countResultX[6];
+
+      // Случаи для 0
+          // горизонт
+          case01 = countResult0[0]+countResult0[1]+ countResult0[2];
+          case02 =countResult0[3]+countResult0[4]+ countResult0[5];
+          case03 =countResult0[6]+countResult0[7]+ countResult0[8];
+          // вертикаль
+           case04 =countResult0[0]+countResult0[3]+ countResult0[6];
+           case05 =countResult0[1]+countResult0[4]+ countResult0[7];
+           case06 =countResult0[2]+countResult0[5]+ countResult0[8];
+          // диагонали
+           case07 =countResult0[0]+countResult0[4]+ countResult0[8];
+          case08 =countResult0[2]+countResult0[4]+ countResult0[6];
+
+       messageWin(caseX1,case01);
+       messageWin(caseX2,case02);
+       messageWin(caseX3,case03);
+       messageWin(caseX4,case04);
+       messageWin(caseX5,case05);
+       messageWin(caseX6,case06);
+       messageWin(caseX7,case07);
+       messageWin(caseX8,case08);
       
-       messageWin(case1);
-       messageWin(case2);
-       messageWin(case3);
-       messageWin(case4);
-       messageWin(case5);
-       messageWin(case6);
-       messageWin(case7);
-       messageWin(case8);
         // Информация для модального окна
-        function messageWin(num){
+        function messageWin(num1,num2){
             
-                 if(num===3){
+                 if(num1===3){
                      alert("Победа крестиков");
 
-                     countResult[index] = 0// очистка массива
+                     countResultX[index] = 0// очистка массива
+                     countResult0[index] = 0
+                     resetAll();
                      
-                 } else if (num===-3){
+                 } else if (num2===3){
                     alert("Победа ноликов");
 
-                    countResult[index] = 0// очистка массива
+                    countResult0[index] = 0// очистка массива
+                    countResultX[index] = 0
+                    resetAll();
                     
                  }
              }
@@ -169,17 +192,29 @@ const countResult = new Array([
 
 //  сброс игры
 button.source.onclick = ()=>{
-
-    str.forEach((element)=>{
-            button.resetGame(element.children[0]);
-            button.resetGame(element.children[1]);
-      
-        })
+    
+    
+    resetAll()
+    
+    
         // сброс input
         // inputRound.setAttribute("checked","checked");
         // inputCross.removeAttribute("checked");
        
     }
+
+
+
+    function resetAll(){ 
+        str.forEach((element,index)=>{
+                button.resetGame(element.children[0]);
+                button.resetGame(element.children[1]);
+                countResultX[index] = 0// очистка массива
+                countResult0[index] = 0 // очистка массива
+          
+            })
+    
+        }
 
 
 
