@@ -128,14 +128,15 @@ function twoPlayers(){
     str.forEach((element,index)=>{
         element.addEventListener("click",()=>{
             
-            if(cross.hasAttribute("checked")){
-                // cross.removeAttribute("checked")
-                // round.setAttribute("checked","checked")
+            if(cross.hasAttribute("checked") && 
+            element.children[0].classList.contains("hide") &&
+             element.children[1].classList.contains("hide")
+            ){
+                cross.removeAttribute("checked")
+                round.setAttribute("checked","checked")
                 element.children[0].classList.remove("hide"); // 0
-               
-                if(element.children[1]){
-                element.children[1].classList.add("hide");
-            }
+                 element.children[1].classList.add("hide");
+            
 
 
          
@@ -143,15 +144,15 @@ function twoPlayers(){
                 
         
             }
-            if(round.hasAttribute("checked")){
+            if(round.hasAttribute("checked") && 
+            element.children[1].classList.contains("hide")&& 
+            element.children[0].classList.contains("hide")){
                 
-                // round.removeAttribute("checked")
-                // cross.setAttribute("checked","checked")
+                round.removeAttribute("checked")
+                cross.setAttribute("checked","checked")
                 element.children[1].classList.remove("hide"); //1
+                 element.children[0].classList.add("hide");
                 
-                if(element.children[0]){
-                    element.children[0].classList.add("hide");
-                }
                 
 
             }    
