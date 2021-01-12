@@ -27,18 +27,25 @@
                                 <p><input  id="small_cross" name="figures" type="radio" value="cross" >Крестик</p>
                             </div>
                             <div class="scores">
-                                <div class="score__title">game counter</div>
+                                <div class="score__title">Game counter</div>
 
                                 <div class="round_cross">
-                                    
+                                <div class="cross__scrore">
+                                 <span>Победы Х:</span>
+                                 <span class="count" id="countX">0</span> 
+                                </div>:
+                                <div class="round__scrore">
+                                    <span>Победы 0:</span>
+                                    <span class="count" id="count0">0</span> 
                                 </div>
-                                
+                            </div>
                             </div>  
         
-        
+                         
                             
                        
                     </div>
+                    
                     <div class="field-wripper">
 
                         <div class="string">
@@ -89,12 +96,18 @@
 
                         </div>
 
-                            
+                        <div class="choose__num_players game__choose">
+                            <div class="container__choose">
+                                <button id="reset_allgame" class = "reset_game" disabled>Reset game</button>
+                                <button id="1player" class = "reset_game">1 player</button>
+                                <button id="2players" class = "reset_game">2 players</button>
+                            </div>
+                        </div>     
                         
                     </div> <!-- / wrapper__field -->
-                    
+                   
                 </div> <!-- / game__field -->
-                <button class = "reset_game" disabled>Reset game</button>
+               
     </div><!-- / container -->
   
     

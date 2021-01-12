@@ -9,6 +9,7 @@
 
 .game__field{
     display:flex;
+    flex-wrap: wrap;
 }
 
 .game__choose{
@@ -25,10 +26,21 @@
     display:flex;
     margin-left:20px;
     flex-direction: column;
+    justify-content: center;
+    text-align: center;
 
 
 }
 
+.score__title{
+    font-weight: bold;
+    font-size:20px;
+}
+
+.cross__scrore,.round__scrore{
+    margin-top:20px;
+
+}
 
 .field-wripper{
     
@@ -131,6 +143,62 @@
 
 
 
+.choose__num_players{
+    margin-left:0px;
+    margin-top:30px;
+    margin-bottom:0px;
+    height: auto;
+    width: auto;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+   
+   
+}
+
+.container__choose{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+   
+}
+button {
+    padding: 0;
+    border: none;
+    font: inherit;
+    color: inherit;
+    background-color: transparent;
+}
+
+.reset_game{
+    height: 30px;
+    background-color: aqua;
+    border-radius: 10%;
+    padding:5px;
+    border:1px solid blue;
+    margin-bottom:5px;
+  
+
+}
 
 
+.reset_game:hover{
+    background-color:yellow;
+}
 
+
+.reset_game:active{
+    background-color: blueviolet;
+    color:white;
+}
+
+
+.scores{
+    background-color: chartreuse;
+    padding-left: 10px;
+    padding-right: 10px;
+    width:90px;
+    border:1px solid blue;
+    border-radius: 5%;
+}

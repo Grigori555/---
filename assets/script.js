@@ -1,13 +1,10 @@
 const cross = document.getElementById("small_cross");
 const round = document.getElementById("small_round");
 const str = document.querySelectorAll(".str");
-
-const roundFig =document.querySelector(".round");
-
-const crossFig =document.querySelector(".cross");
-const inputRound = document.getElementById("small_round");
-
-const inputCross =document.getElementById("small_cross");
+const scoreZero =document.getElementById("count0");
+const scoreX =document.getElementById("countX");
+const alonePlayer =document.getElementById("1player");
+const two2Players =document.getElementById("2players");
 
 // практика в пррототипировании
 
@@ -38,18 +35,18 @@ const string = new String(player.name); // cоздаем строку через
 
 
 //изменение атрибута инпутов радио
-inputRound.addEventListener("click",()=>{
-   if((inputRound.hasAttribute("checked")===false) && inputCross.hasAttribute("checked")){
-    inputRound.setAttribute("checked","checked");
-    inputCross.removeAttribute("checked");
+round.addEventListener("click",()=>{
+   if((round.hasAttribute("checked")===false) && cross.hasAttribute("checked")){
+    round.setAttribute("checked","checked");
+    cross.removeAttribute("checked");
    }
 })
 
 
-inputCross.addEventListener("click",()=>{
-    if((inputCross.hasAttribute("checked")===false) && inputRound.hasAttribute("checked")){
-        inputCross.setAttribute("checked","checked");
-        inputRound.removeAttribute("checked");
+cross.addEventListener("click",()=>{
+    if((cross.hasAttribute("checked")===false) && round.hasAttribute("checked")){
+        cross.setAttribute("checked","checked");
+        round.removeAttribute("checked");
     }
  })
 
@@ -70,124 +67,182 @@ const countResult0 = new Array([
 
 
 // вывод  фигур
- str.forEach((element,index)=>{
-    element.addEventListener("click",()=>{
-        
-        if(cross.hasAttribute("checked")){
-            element.children[0].classList.remove("hide"); // 0
-           
-           
-            
-            if(element.children[1]){
-            element.children[1].classList.add("hide");
-        }
-            
+
+// Запуск игры 2 игрока
+
+
+
+
+
+two2Players.onclick =()=>{
+    twoPlayers();
     
-        }
-        if(round.hasAttribute("checked")){
-            element.children[1].classList.remove("hide"); //1
+}
+
+// alonePlayer.onclick =()=>{
+    
+    
+
+//     function getRandomArbitrary(min, max) {
+//         return Math.random() * (max - min) + min;
+//       }
+  
+
+    
+//     str.forEach((element,index)=>{
+//         element.addEventListener("click",()=>{
             
-            if(element.children[0]){
-                element.children[0].classList.add("hide");
-            }
-        }    console.log(element.children[0])
-        
-  // Сценарии
-
-  // Запись ходов
-            if((element.children[0].classList.contains("hide")===false)
-            && element.children[1].classList.contains("hide")){
-
-            
-      countResultX[index]=1;  // запись ходов X
-      
-            } else if ((element.children[1].classList.contains("hide")===false)
-            && element.children[0].classList.contains("hide")){
-        countResult0[index]=1;  // запись ходов 0
-
-            }
-           // Случаи для X
-              // горизонт
-       caseX1 = countResultX[0]+countResultX[1]+ countResultX[2];
-       caseX2 =countResultX[3]+countResultX[4]+ countResultX[5];
-       caseX3 =countResultX[6]+countResultX[7]+ countResultX[8];
-       // вертикаль
-        caseX4 =countResultX[0]+countResultX[3]+ countResultX[6];
-        caseX5 =countResultX[1]+countResultX[4]+ countResultX[7];
-        caseX6 =countResultX[2]+countResultX[5]+ countResultX[8];
-       // диагонали
-        caseX7 =countResultX[0]+countResultX[4]+ countResultX[8];
-       caseX8 =countResultX[2]+countResultX[4]+ countResultX[6];
-
-      // Случаи для 0
-          // горизонт
-          case01 = countResult0[0]+countResult0[1]+ countResult0[2];
-          case02 =countResult0[3]+countResult0[4]+ countResult0[5];
-          case03 =countResult0[6]+countResult0[7]+ countResult0[8];
-          // вертикаль
-           case04 =countResult0[0]+countResult0[3]+ countResult0[6];
-           case05 =countResult0[1]+countResult0[4]+ countResult0[7];
-           case06 =countResult0[2]+countResult0[5]+ countResult0[8];
-          // диагонали
-           case07 =countResult0[0]+countResult0[4]+ countResult0[8];
-          case08 =countResult0[2]+countResult0[4]+ countResult0[6];
-
-       messageWin(caseX1,case01);
-       messageWin(caseX2,case02);
-       messageWin(caseX3,case03);
-       messageWin(caseX4,case04);
-       messageWin(caseX5,case05);
-       messageWin(caseX6,case06);
-       messageWin(caseX7,case07);
-       messageWin(caseX8,case08);
-      
-        // Информация для модального окна
-        function messageWin(num1,num2){
-            
-                 if(num1===3){
-                     alert("Победа крестиков");
-
-                     countResultX[index] = 0// очистка массива
-                     countResult0[index] = 0
-                     resetAll();
-                     
-                 } else if (num2===3){
-                    alert("Победа ноликов");
-
-                    countResult0[index] = 0// очистка массива
-                    countResultX[index] = 0
-                    resetAll();
+//             if(cross.hasAttribute("checked")){
+//                 element.children[0].classList.remove("hide"); // 0
+               
+               
+                
+//                 if(element.children[1]){
+//                 element.children[1].classList.add("hide");
+//                   let elementRandoom = element[Math.floor(getRandomArbitrary(1, 8))]     
+//                   console.log(elementRandoom);
                     
-                 }
-             }
 
-    })
+//             }
+                
+        
+//             }
+//             if(round.hasAttribute("checked")){
+//                 element.children[1].classList.remove("hide"); //1
+                
+//                 if(element.children[0]){
+//                     element.children[0].classList.add("hide");
+//                 }
+//             }   
+      
+//         })
+
+//     })
+
     
-   
- })
+// }
+
+
+function twoPlayers(){
+
+    str.forEach((element,index)=>{
+        element.addEventListener("click",()=>{
+            
+            if(cross.hasAttribute("checked")){
+                // cross.removeAttribute("checked")
+                // round.setAttribute("checked","checked")
+                element.children[0].classList.remove("hide"); // 0
+               
+                if(element.children[1]){
+                element.children[1].classList.add("hide");
+            }
+
+
+         
+             
+                
+        
+            }
+            if(round.hasAttribute("checked")){
+                
+                // round.removeAttribute("checked")
+                // cross.setAttribute("checked","checked")
+                element.children[1].classList.remove("hide"); //1
+                
+                if(element.children[0]){
+                    element.children[0].classList.add("hide");
+                }
+                
+
+            }    
+            
+      // Сценарии
+    
+      // Запись ходов
+                if((element.children[0].classList.contains("hide")===false)
+                && element.children[1].classList.contains("hide")){
+    
+                
+          countResultX[index]=1;  // запись ходов X
+          
+                } else if ((element.children[1].classList.contains("hide")===false)
+                && element.children[0].classList.contains("hide")){
+            countResult0[index]=1;  // запись ходов 0
+    
+                }
+               // Случаи для X
+                  // горизонт
+           caseX1 = countResultX[0]+countResultX[1]+ countResultX[2];
+           caseX2 =countResultX[3]+countResultX[4]+ countResultX[5];
+           caseX3 =countResultX[6]+countResultX[7]+ countResultX[8];
+           // вертикаль
+            caseX4 =countResultX[0]+countResultX[3]+ countResultX[6];
+            caseX5 =countResultX[1]+countResultX[4]+ countResultX[7];
+            caseX6 =countResultX[2]+countResultX[5]+ countResultX[8];
+           // диагонали
+            caseX7 =countResultX[0]+countResultX[4]+ countResultX[8];
+           caseX8 =countResultX[2]+countResultX[4]+ countResultX[6];
+    
+          // Случаи для 0
+              // горизонт
+              case01 = countResult0[0]+countResult0[1]+ countResult0[2];
+              case02 =countResult0[3]+countResult0[4]+ countResult0[5];
+              case03 =countResult0[6]+countResult0[7]+ countResult0[8];
+              // вертикаль
+               case04 =countResult0[0]+countResult0[3]+ countResult0[6];
+               case05 =countResult0[1]+countResult0[4]+ countResult0[7];
+               case06 =countResult0[2]+countResult0[5]+ countResult0[8];
+              // диагонали
+               case07 =countResult0[0]+countResult0[4]+ countResult0[8];
+              case08 =countResult0[2]+countResult0[4]+ countResult0[6];
+    
+           messageWin(caseX1,case01);
+           messageWin(caseX2,case02);
+           messageWin(caseX3,case03);
+           messageWin(caseX4,case04);
+           messageWin(caseX5,case05);
+           messageWin(caseX6,case06);
+           messageWin(caseX7,case07);
+           messageWin(caseX8,case08);
+          
+            // Информация для модального окна
+            function messageWin(num1,num2){
+                
+                     if(num1===3){
+                         alert("Победа крестиков");
+    
+                         countResultX[index] = 0// очистка массива
+                         countResult0[index] = 0
+                         resetRound();
+                         scoreX.textContent++
+                         
+                     } else if (num2===3){
+                        alert("Победа ноликов");
+    
+                        countResult0[index] = 0// очистка массива
+                        countResultX[index] = 0
+                        resetRound();
+                        scoreZero.textContent++
+                        
+                     }
+                 }
+    
+        })
+        
+       
+     })
+    
+    
+    
+
+}
+
+ 
 
 
 
 
 
-
-
-
-
- // Условия победы
-//  if(case1 ===3){
-//      console.log("Hello")
-//  }
-//  if((countResult[0]+countResult[1]+countResult[3]) ===3 || 
-//     (countResult[4]+countResult[5]+countResult[6]) ===3 ||
-//     (countResult[7]+countResult[8]+countResult[9]) ===3||
-//     (countResult[1]+countResult[4]+countResult[7]) ===3||
-//     (countResult[2]+countResult[5]+countResult[8]) ===3||
-//     (countResult[3]+countResult[6]+countResult[9]) ===3||
-//     (countResult[1]+countResult[5]+countResult[9]) ===3 ||
-//     (countResult[3]+countResult[5]+countResult[7]) ===3){
-//         console.log("Победа")
-//     }
 
 
 //  сброс игры
@@ -197,24 +252,29 @@ button.source.onclick = ()=>{
     resetAll()
     
     
-        // сброс input
-        // inputRound.setAttribute("checked","checked");
-        // inputCross.removeAttribute("checked");
+        
        
     }
 
 
 
     function resetAll(){ 
-        str.forEach((element,index)=>{
-                button.resetGame(element.children[0]);
-                button.resetGame(element.children[1]);
-                countResultX[index] = 0// очистка массива
-                countResult0[index] = 0 // очистка массива
-          
-            })
+        resetRound()
+        scoreZero.textContent=0
+        scoreX.textContent=0
+        
     
         }
 
 
 
+function resetRound(){
+    str.forEach((element,index)=>{
+        button.resetGame(element.children[0]);
+        button.resetGame(element.children[1]);
+        countResultX[index] = 0// очистка массива
+        countResult0[index] = 0 // очистка массива
+        
+  
+    })
+}
