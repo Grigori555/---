@@ -27,6 +27,17 @@ Object.prototype.resetGame = function(element){
 button.removeDisable();
 
 
+HTMLDivElement.prototype.classToggleX = function(){
+    this.children[0].classList.remove("hide")
+    this.children[1].classList.add("hide");
+}
+
+HTMLDivElement.prototype.classToggle0 = function(){
+    this.children[1].classList.remove("hide")
+    this.children[0].classList.add("hide");
+}
+
+
 const player = Object.create(button);
 player.name = "player";
 const string = new String(player.name); // cоздаем строку через глобальный класс
@@ -126,6 +137,7 @@ two2Players.onclick =()=>{
 function twoPlayers(){
 
     str.forEach((element,index)=>{
+        
         element.addEventListener("click",()=>{
             
             if(cross.hasAttribute("checked") && 
@@ -134,29 +146,22 @@ function twoPlayers(){
             ){
                 cross.removeAttribute("checked")
                 round.setAttribute("checked","checked")
-                element.children[0].classList.remove("hide"); // 0
-                 element.children[1].classList.add("hide");
-            
-
-
-         
-             
-                
-        
-            }
+                element.classToggleX(); // смотри прототипирование
+                // element.children[0].classList.remove("hide"); // 0
+                //  element.children[1].classList.add("hide");
+                }
             if(round.hasAttribute("checked") && 
             element.children[1].classList.contains("hide")&& 
             element.children[0].classList.contains("hide")){
                 
                 round.removeAttribute("checked")
                 cross.setAttribute("checked","checked")
-                element.children[1].classList.remove("hide"); //1
-                 element.children[0].classList.add("hide");
+                element.classToggle0();  // смотри прототипирование
+                // element.children[1].classList.remove("hide"); //1
+                //  element.children[0].classList.add("hide");
                 
-                
-
-            }    
-            
+                }    
+        
       // Сценарии
     
       // Запись ходов
