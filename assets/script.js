@@ -27,15 +27,12 @@ Object.prototype.resetGame = function(element){
 button.removeDisable();
 
 
-HTMLDivElement.prototype.classToggleX = function(){
-    this.children[0].classList.remove("hide")
-    this.children[1].classList.add("hide");
+HTMLDivElement.prototype.classToggle = function(num1,num2){
+    this.children[num1].classList.remove("hide")
+    this.children[num2].classList.add("hide");
 }
 
-HTMLDivElement.prototype.classToggle0 = function(){
-    this.children[1].classList.remove("hide")
-    this.children[0].classList.add("hide");
-}
+
 
 
 const player = Object.create(button);
@@ -90,49 +87,111 @@ two2Players.onclick =()=>{
     
 }
 
-// alonePlayer.onclick =()=>{
-    
+
+// один игрок
+
+function getRandomNum(min, max) {
+    return Math.random() * (max - min) + min;
+  }   
+
+
+const robot = new Object({
+ 
+  RandomNum1: Math.floor(getRandomNum(1, 8)),
+  RandomNum2:Math.floor(getRandomNum(1, 8)),
+  RandomNum3:Math.floor(getRandomNum(1, 8)),
+  RandomNum4:Math.floor(getRandomNum(1, 8)),
+  RandomNum5:Math.floor(getRandomNum(1, 8)),
+  RandomNum6:Math.floor(getRandomNum(1, 8)),
+  RandomNum7:Math.floor(getRandomNum(1, 8)),
+  RandomNum8:Math.floor(getRandomNum(1, 8)),
+
+})
+
+delete robot.removeDisable;
+delete robot.resetGame;
+// console.log(robot)
+
+
+//    for(random in robot)
+//         str[robot[random]].children[1].classList.remove("hide");
+let arrayOfData = new Array([]) 
+for(key in robot){
+    // element.children[0].setAttribute("data-num",robot[key])
+    // element.children[1].setAttribute("data-num",robot[key])
+
+    arrayOfData.push(robot[key]);
+    }
+
+
     
 
-//     function getRandomArbitrary(min, max) {
-//         return Math.random() * (max - min) + min;
-//       }
+     arrayOfData.shift(0)
+     arrayOfData.pop(arrayOfData.length-1);
+     arrayOfData.pop(arrayOfData.length-1);
+     console.log(arrayOfData)
+
+
+
+ alonePlayer.onclick =()=>{
+    
+    
+    
+    
   
 
     
-//     str.forEach((element,index)=>{
-//         element.addEventListener("click",()=>{
-            
-//             if(cross.hasAttribute("checked")){
-//                 element.children[0].classList.remove("hide"); // 0
-               
-               
-                
-//                 if(element.children[1]){
-//                 element.children[1].classList.add("hide");
-//                   let elementRandoom = element[Math.floor(getRandomArbitrary(1, 8))]     
-//                   console.log(elementRandoom);
-                    
+    str.forEach((element,index)=>{
 
-//             }
-                
         
-//             }
-//             if(round.hasAttribute("checked")){
-//                 element.children[1].classList.remove("hide"); //1
-                
-//                 if(element.children[0]){
-//                     element.children[0].classList.add("hide");
-//                 }
-//             }   
-      
-//         })
 
-//     })
+        element.addEventListener("click",()=>{
+            
+            if(cross.hasAttribute("checked")){
+                element.children[0].classList.remove("hide"); // 0
+               str[robot.RandomNum1].children[1].classList.remove("hide");
+
+                
+                
 
     
-// }
+            //    str.forEach((randomElem,number)=>{
+                  
+            //         randomElem[robot.RandomNum1].children[1].classList.remove("hide");
+                   
+                   
+                  
+            //     })
+            
+               
+               
+                
+                if(element.children[1]){
+                element.children[1].classList.add("hide");
+                 
+                    
 
+            }
+                
+        
+            }
+            if(round.hasAttribute("checked")){
+                element.children[1].classList.remove("hide"); //1
+                
+                if(element.children[0]){
+                    element.children[0].classList.add("hide");
+                }
+            }   
+      
+        })
+
+    })
+
+    
+}
+
+
+// функция 2 игроков
 
 function twoPlayers(){
 
@@ -146,7 +205,7 @@ function twoPlayers(){
             ){
                 cross.removeAttribute("checked")
                 round.setAttribute("checked","checked")
-                element.classToggleX(); // смотри прототипирование
+                element.classToggle(0,1); // смотри прототипирование
                 // element.children[0].classList.remove("hide"); // 0
                 //  element.children[1].classList.add("hide");
                 }
@@ -156,7 +215,7 @@ function twoPlayers(){
                 
                 round.removeAttribute("checked")
                 cross.setAttribute("checked","checked")
-                element.classToggle0();  // смотри прототипирование
+                element.classToggle(1,0);  // смотри прототипирование
                 // element.children[1].classList.remove("hide"); //1
                 //  element.children[0].classList.add("hide");
                 
@@ -284,3 +343,8 @@ function resetRound(){
   
     })
 }
+
+
+
+
+
