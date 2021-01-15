@@ -90,88 +90,105 @@ two2Players.onclick =()=>{
 
 // один игрок
 
-function getRandomNum(min, max) {
-    return Math.random() * (max - min) + min;
-  }   
 
 
-const robot = new Object({
- 
-  RandomNum1: Math.floor(getRandomNum(1, 8)),
-  RandomNum2:Math.floor(getRandomNum(1, 8)),
-  RandomNum3:Math.floor(getRandomNum(1, 8)),
-  RandomNum4:Math.floor(getRandomNum(1, 8)),
-  RandomNum5:Math.floor(getRandomNum(1, 8)),
-  RandomNum6:Math.floor(getRandomNum(1, 8)),
-  RandomNum7:Math.floor(getRandomNum(1, 8)),
-  RandomNum8:Math.floor(getRandomNum(1, 8)),
+function getRandomArr(min, max) {
+     
+    function getRandomNum(min, max){
+        return Math.floor(Math.random() * (max - min) + min)
+    }
+   
+    let arrayOfData = [];
+    let newArr = [];
 
-})
+    for(let i = 0; i<=8;i++){
+        
+        arrayOfData.push(getRandomNum(1, 8))
+       
 
-delete robot.removeDisable;
-delete robot.resetGame;
-// console.log(robot)
+    }
 
+    newArr = arrayOfData.map(function (elem, pos, arr) {
+        return pos !== arr.indexOf(elem) || pos !== arr.lastIndexOf(elem);
+    });
 
-//    for(random in robot)
-//         str[robot[random]].children[1].classList.remove("hide");
-let arrayOfData = new Array([]) 
-for(key in robot){
-    // element.children[0].setAttribute("data-num",robot[key])
-    // element.children[1].setAttribute("data-num",robot[key])
+    for(let j =0; j<=8-1;j++){
+        if(newArr[j] ===true){
 
-    arrayOfData.push(robot[key]);
+            getRandomArr(newArr[j], 8)
+
+        }
     }
 
 
-    
-
-     arrayOfData.shift(0)
-     arrayOfData.pop(arrayOfData.length-1);
-     arrayOfData.pop(arrayOfData.length-1);
-     console.log(arrayOfData)
+ console.log(arrayOfData);
+  console.log(newArr);
+  debugger;
+}   
 
 
+// getRandomArr(1, 8)
+// console.log("myarr",getRandomArr(1, 8))
 
- alonePlayer.onclick =()=>{
+// var test = [1, 4, 1, 5, 6, 4];
+// var test1
+// test = test.map(function (elem, pos, arr) {
+//     return pos !== arr.indexOf(elem) || pos !== arr.lastIndexOf(elem);
+// });
+// console.log("mytest",test);
+
+
+
+//  let arrayOfData = getRandomArr(1, 8)
+
+
+alonePlayer.onclick =()=>{
     
     
+
     
-    
-  
+
+
+     
+   
 
     
     str.forEach((element,index)=>{
-
         
-
         element.addEventListener("click",()=>{
             
             if(cross.hasAttribute("checked")){
                 element.children[0].classList.remove("hide"); // 0
-               str[robot.RandomNum1].children[1].classList.remove("hide");
+            //    str[robot.RandomNum1].children[1].classList.remove("hide");
+            
+                        // console.log(arrayOfData[index]);
+                       // проверка масссива случайных чисел
 
+                     
+
+                            str[arrayOfData[index]].children[1].classList.remove("hide");
+                           
+                       
+       
+
+        if(element.children[1]){
+            element.children[1].classList.add("hide");
+             }      
+                
+        
+               
+                     
+                    
+                    
                 
                 
 
     
-            //    str.forEach((randomElem,number)=>{
-                  
-            //         randomElem[robot.RandomNum1].children[1].classList.remove("hide");
-                   
-                   
-                  
-            //     })
-            
+        
                
                
                 
-                if(element.children[1]){
-                element.children[1].classList.add("hide");
-                 
-                    
-
-            }
+             
                 
         
             }
