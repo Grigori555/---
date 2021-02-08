@@ -98,10 +98,17 @@ for(let i =0; i<=keys.length-1;i++){
     fieldGame[key] = value;
 }
 
-Object.prototype.dataFull = function(color ="blue"){
+Object.prototype.dataFull= function(color ="blue"){
     this.dataset.container = "full";
     this.style.background =color;
 }
+
+HTMLDivElement.prototype.dataFullGo = function(){
+   
+    this.children[0].classList.remove("hide"); // 0
+    this.dataFull("yellow")
+}
+
 
 const arr = [0,1,2,3,4,5,6,7]
 
@@ -109,34 +116,27 @@ function getRandomFloat(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
   }
  
-  function fullBlack(color="black", min =0, max=9) {
+  function randoomRobot( index,ranNum) {
 
+     ranNum= getRandomFloat(0, 9);
+     element2 = str[ranNum];
 
-         let ranStr = str[getRandomFloat(0, 9)]
-
-         try {
-    if(ranStr.dataset.container === "empty"){
-        
-        ranStr.dataFull("black");
-        ranStr.dataset.container = "full";
-        console.log(ranStr);
-     } else if(ranStr <9 || ranStr.dataset.container!=="full"){
-        
-        fullBlack() // рекурсия
+  try{
+           
+    if(element2.dataset.container === "empty"){
+       
+        element2.dataFullGo();
+        element2.dataset.container = "full";
+        console.log(element2);
+    } else if(element2.dataset.container === "full"){
+        randoomRobot( index,ranNum)
     }
-
-}        catch(err){
-    console.log("oшибка")
-}
-
-         
+  } catch(error){
+      console.log("поля заполены, игра окончена");
   }
-
-let num =str[10];
-
-if(str[10]===undefined){
-    console.log(num)
+    
 }
+
 
 
 
@@ -147,62 +147,33 @@ if(str[10]===undefined){
 
   
   
-setInterval(fullBlack, 1000);
+
 
   
 
 
 alonePlayer.onclick =()=>{
     
-
-    for(let i = 0; i<=str.length-1; i++){
-        str[i].addEventListener("click",()=>{
-            if(  
-            str[i].children[0].classList.contains("hide") &&
-            str[i].children[1].classList.contains("hide") ){
-                cross.removeAttribute("checked")
-                round.setAttribute("checked","checked")
-                str[i].children[0].classList.remove("hide"); // 0
-                str[i].children[1].classList.add("hide");
-                str[i].dataFull()
-               
+    str.forEach((element,index)=>{
+        element.addEventListener("click",()=>{
+            if(round.hasAttribute("checked") && 
+            element.children[1].classList.contains("hide")&& 
+            element.children[0].classList.contains("hide")){
                 
-            }
-
-            if(str[0].dataset.container === "empty" && str[1].dataset.container === "empty"
-            && str[2].dataset.container==="empty" ){
-                str[5].children[1].classList.remove("hide"); // 0
-                str[5].dataFull("yellow")
-            }
-
-
-        //    if(str[0].dataset.container === "empty" && str[1].dataset.container === "empty"
-        //     && str[2].dataset.container==="empty" ){
-        //         str[5].children[1].classList.remove("hide"); // 0
-        //         str[5].dataFull("yellow")
-        //     }
-
-        //      if(str[0].dataset.container === "empty" && str[3].dataset.container === "full"
-        //     && str[6].dataset.container==="full" ){
-        //         str[0].children[1].classList.remove("hide"); // 0
-        //         str[0].dataFull("yellow")
-        //     }
-
-        //     if(str[0].dataset.container === "full" && str[3].dataset.container === "full"
-        //     && str[6].dataset.container==="empty" ){
-        //         str[6].children[1].classList.remove("hide"); // 0
-        //         str[6].dataFull("yellow")
-        //          // массив emty случайных чисел
-        //          // если случайно число больше или меньше
-        //     }
+             
+                
+                element.classToggle(1,0); 
+                element.dataFull();
+               randoomRobot(index);
+             console.log(index,element)// смотри прототипирование
+                // element.children[1].classList.remove("hide"); //1
+                //  element.children[0].classList.add("hide");
+                
+                }   
 
         })
-       
-    }
-    
-
+    })
 }
-
     
 
 
