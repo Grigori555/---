@@ -22,6 +22,8 @@ Object.prototype.removeDisable = function(){
 
 Object.prototype.resetGame = function(element){
     element.classList.add("hide");
+
+    
 }
 
 button.removeDisable();
@@ -30,6 +32,18 @@ button.removeDisable();
 HTMLDivElement.prototype.classToggle = function(num1,num2){
     this.children[num1].classList.remove("hide")
     this.children[num2].classList.add("hide");
+}
+
+
+Object.prototype.dataFull= function(color ="blue"){
+    this.dataset.container = "full";
+    this.style.background =color;
+}
+
+HTMLDivElement.prototype.dataFullGo = function(childNum = 0){
+   
+    this.children[childNum].classList.remove("hide"); // 0
+    this.dataFull("yellow")
 }
 
 
@@ -82,10 +96,7 @@ const countResult0 = new Array([
 
 
 
-two2Players.onclick =()=>{
-    twoPlayers();
-    
-}
+
 
 
 const fieldGame = new Object({})
@@ -98,45 +109,10 @@ for(let i =0; i<=keys.length-1;i++){
     fieldGame[key] = value;
 }
 
-Object.prototype.dataFull= function(color ="blue"){
-    this.dataset.container = "full";
-    this.style.background =color;
-}
-
-HTMLDivElement.prototype.dataFullGo = function(childNum = 0){
-   
-    this.children[childNum].classList.remove("hide"); // 0
-    this.dataFull("yellow")
-}
 
 
 const arr = [0,1,2,3,4,5,6,7]
 
-function getRandomFloat(min, max) {
-    return Math.floor(Math.random() * (max - min) + min);
-  }
- 
-  function randoomRobot( index,ranNum,childNum) {
-
-     ranNum= getRandomFloat(0, 9);
-     element2 = str[ranNum];
-
-  try{
-           
-    if(element2.dataset.container === "empty"){
-       
-        element2.dataFullGo(childNum);
-        element2.dataset.container = "full";
-        console.log(element2);
-    } else if(element2.dataset.container === "full"){
-        randoomRobot( index,ranNum)
-    }
-  } catch(error){
-      // переполнен стек вызовов
-      console.log("поля заполнены, игра окончена");
-  }
-    
-}
 
 
 
@@ -146,17 +122,34 @@ function getRandomFloat(min, max) {
   // https://learn.javascript.ru/try-catch  перечитай
   
 
+  // Переключатели
+  let flag1;
+  let flag2;
+
+function turning (a){
+    return a = true;
   
+}
   
 
 
-  
+
+
 
 
 alonePlayer.onclick =()=>{
+   
+    flag1 = true;
+    flag2 = false;
     
+
     str.forEach((element,index)=>{
         element.addEventListener("click",()=>{
+
+           
+           
+
+        if(flag1){
             if(round.hasAttribute("checked") && 
             element.children[1].classList.contains("hide")&& 
             element.children[0].classList.contains("hide")){
@@ -167,7 +160,7 @@ alonePlayer.onclick =()=>{
                 element.classToggle(1,0); 
                 element.dataFull();
                randoomRobot(index,0);
-               getWin(element,index);
+            //    getWin(element,index);
              console.log(index,element)// смотри прототипирование
                 // element.children[1].classList.remove("hide"); //1
                 //  element.children[0].classList.add("hide");
@@ -181,70 +174,112 @@ alonePlayer.onclick =()=>{
                     // round.setAttribute("checked","checked")
                     element.classToggle(0,1); 
                     element.dataFull();
-                   randoomRobot(index,0);
-                   getWin(element,index);
+                   randoomRobot(index,1);
+                  
+                //    getWin(element,index);
                  console.log(index,element)// смотри прототипирование
                     // element.children[0].classList.remove("hide"); // 0
                     //  element.children[1].classList.add("hide");
                     }   
 
-        })
+        
+                }   else{
+                    return
+                }    
+             })
     })
+
 }
-    
+  
+
+// Разработка робота для одного игрока
 
 
-     
-        
-        
-        
-       
-     
+ 
+  function randoomRobot( index,childNum) {
+
+    // случайное число
    
+    function getRandomFloat(min, max) {
+        return Math.floor(Math.random() * (max - min) + min);
+      }
+      let ranNum = getRandomFloat(0, 9);
+     
+     element2 = str[ranNum];
 
+  try{
+           
+    if(element2.dataset.container === "empty"){
+       
+        element2.dataFullGo(childNum);
+        element2.dataset.container = "full";
+        console.log(element2);
+    } else if(element2.dataset.container === "full"){
+        randoomRobot( index,childNum)
+    }
+  } catch(error){
+      // переполнен стек вызовов
+      console.log("поля заполнены, игра окончена");
+  }
+    
+}
 
-
+    
 // функция 2 игроков
 
+two2Players.onclick =()=>{
+    flag1 = false;
+    flag2 = true;
+    twoPlayers();
+    
+    
+} 
+        
+        
 function twoPlayers(){
+    
 
-    str.forEach((element,index)=>{
-        
-        element.addEventListener("click",()=>{
+    
+        str.forEach((element,index)=>{
             
-            if(cross.hasAttribute("checked") && 
-            element.children[0].classList.contains("hide") &&
-             element.children[1].classList.contains("hide")
-            ){
-                cross.removeAttribute("checked")
-                round.setAttribute("checked","checked")
-                element.classToggle(0,1); // смотри прототипирование
-                // element.children[0].classList.remove("hide"); // 0
-                //  element.children[1].classList.add("hide");
-                }
-            if(round.hasAttribute("checked") && 
-            element.children[1].classList.contains("hide")&& 
-            element.children[0].classList.contains("hide")){
-                
-                round.removeAttribute("checked")
-                cross.setAttribute("checked","checked")
-                element.classToggle(1,0);  // смотри прототипирование
-                // element.children[1].classList.remove("hide"); //1
-                //  element.children[0].classList.add("hide");
-                
-                }    
-        
-     // Запуск побед и иных системных сообщений
-     getWin(element,index);
-    
-        })
-        
-       
-     })
-    
-    
-    
+            element.addEventListener("click",()=>{
 
+                
+            if(flag2){ 
+                
+                if(cross.hasAttribute("checked") && 
+                element.children[0].classList.contains("hide") &&
+                element.children[1].classList.contains("hide")
+                ){
+                    cross.removeAttribute("checked")
+                    round.setAttribute("checked","checked")
+                    element.classToggle(0,1); // смотри прототипирование
+                    // element.children[0].classList.remove("hide"); // 0
+                    //  element.children[1].classList.add("hide");
+                    }
+                if(round.hasAttribute("checked") && 
+                element.children[1].classList.contains("hide")&& 
+                element.children[0].classList.contains("hide")){
+                    
+                    round.removeAttribute("checked")
+                    cross.setAttribute("checked","checked")
+                    element.classToggle(1,0);  // смотри прототипирование
+                    // element.children[1].classList.remove("hide"); //1
+                    //  element.children[0].classList.add("hide");
+                    
+                    }    
+            
+        // Запуск побед и иных системных сообщений
+        getWin(element,index);
+        
+            }else{
+                return
+            }
+        
+        })
+            
+        })
+    
 }
 
  
@@ -332,8 +367,14 @@ function messageWin(num1,num2){
 //  сброс игры
 button.source.onclick = ()=>{
     
+   
     
-    resetAll()
+    resetAll();
+
+    for(let element of str){
+        element.style.background = "white";
+        
+    }
     
     
         
@@ -343,9 +384,12 @@ button.source.onclick = ()=>{
 
 
     function resetAll(){ 
-        resetRound()
-        scoreZero.textContent=0
-        scoreX.textContent=0
+        resetRound();
+        scoreZero.textContent=0;
+        scoreX.textContent=0;
+        flag1 = false;
+        flag2 = false;
+
         
     
         }
