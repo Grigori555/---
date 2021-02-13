@@ -51,7 +51,40 @@ HTMLDivElement.prototype.dataFullGo = function(childNum = 0){
 
 const player = Object.create(button);
 player.name = "player";
-const string = new String(player.name); // cоздаем строку через глобальный класс
+
+function toggleBoolean(){
+    this.player1 = "Grigory";
+  this.player2 =  "Dmitri";
+}
+
+const team = {
+    player1: "Grigory",
+    player2: "Dmitri",
+    logInfo:function(){
+        console.log(`Name of player1 ${this.player1}`)
+        console.log(`Name of player2 ${this.player2}`)
+    }
+       
+    }
+
+
+    const team2 = {
+        player1: "Aleksei",
+        player2: "Andrew"
+    }
+
+
+
+team.logInfo.bind(team2)();
+
+
+
+
+    
+    
+
+
+
 
 
 
@@ -111,7 +144,6 @@ for(let i =0; i<=keys.length-1;i++){
 
 
 
-const arr = [0,1,2,3,4,5,6,7]
 
 
 
@@ -126,10 +158,7 @@ const arr = [0,1,2,3,4,5,6,7]
   let flag1;
   let flag2;
 
-function turning (a){
-    return a = true;
-  
-}
+
   
 
 
@@ -159,9 +188,9 @@ alonePlayer.onclick =()=>{
                 // cross.setAttribute("checked","checked")
                 element.classToggle(1,0); 
                 element.dataFull();
-               randoomRobot(index,0);
-            //    getWin(element,index);
-             console.log(index,element)// смотри прототипирование
+               randoomRobot(element,0);
+               getWin(element,index);
+            
                 // element.children[1].classList.remove("hide"); //1
                 //  element.children[0].classList.add("hide");
                 
@@ -174,10 +203,10 @@ alonePlayer.onclick =()=>{
                     // round.setAttribute("checked","checked")
                     element.classToggle(0,1); 
                     element.dataFull();
-                   randoomRobot(index,1);
+                   randoomRobot(element,1);
                   
-                //    getWin(element,index);
-                 console.log(index,element)// смотри прототипирование
+                   getWin(element,index);
+               
                     // element.children[0].classList.remove("hide"); // 0
                     //  element.children[1].classList.add("hide");
                     }   
@@ -195,6 +224,16 @@ alonePlayer.onclick =()=>{
 // Разработка робота для одного игрока
 
 
+// запуск побед робота
+
+// метода проверки
+
+
+
+// str[0].dataset.container ==="empty"
+
+
+
  
   function randoomRobot( index,childNum) {
 
@@ -203,7 +242,7 @@ alonePlayer.onclick =()=>{
     function getRandomFloat(min, max) {
         return Math.floor(Math.random() * (max - min) + min);
       }
-      let ranNum = getRandomFloat(0, 9);
+      let ranNum = getRandomFloat(0, 8);
      
      element2 = str[ranNum];
 
@@ -213,16 +252,36 @@ alonePlayer.onclick =()=>{
        
         element2.dataFullGo(childNum);
         element2.dataset.container = "full";
-        console.log(element2);
-    } else if(element2.dataset.container === "full"){
-        randoomRobot( index,childNum)
-    }
-  } catch(error){
+      str.forEach((element,index)=>{
+        getWin(element,index);
+       
+      })
+     
+    
+    } else if(str[0].dataset.container ==="empty"||
+    str[1].dataset.container ==="empty"||
+    str[2].dataset.container ==="empty"||
+    str[3].dataset.container ==="empty"||
+    str[4].dataset.container ==="empty"||
+    str[5].dataset.container ==="empty"||
+    str[6].dataset.container ==="empty"||
+    str[7].dataset.container ==="empty"||
+    str[8].dataset.container ==="empty"){
+        randoomRobot(index,childNum)
+    
+  } 
+ } catch(error){
       // переполнен стек вызовов
-      console.log("поля заполнены, игра окончена");
-  }
+      
+      console.log("поля заполнены, игра окончена", error);
+    
+  }  
+
+  
     
 }
+
+  
 
     
 // функция 2 игроков
@@ -272,8 +331,6 @@ function twoPlayers(){
         // Запуск побед и иных системных сообщений
         getWin(element,index);
         
-            }else{
-                return
             }
         
         })
@@ -287,7 +344,7 @@ function twoPlayers(){
 
 function getWin(element,index){
 
-    // Сценарии
+    // Сценарии  -  использовать только с ForEach
     
       // Запись ходов
     if((element.children[0].classList.contains("hide")===false)
@@ -345,6 +402,7 @@ function messageWin(num1,num2){
              countResultX[index] = 0// очистка массива
              countResult0[index] = 0
              resetRound();
+             
              scoreX.textContent++
              
          } else if (num2===3){
@@ -353,6 +411,7 @@ function messageWin(num1,num2){
             countResult0[index] = 0// очистка массива
             countResultX[index] = 0
             resetRound();
+            
             scoreZero.textContent++
             
          }
@@ -371,10 +430,7 @@ button.source.onclick = ()=>{
     
     resetAll();
 
-    for(let element of str){
-        element.style.background = "white";
-        
-    }
+    
     
     
         
@@ -400,11 +456,13 @@ function resetRound(){
     str.forEach((element,index)=>{
         button.resetGame(element.children[0]);
         button.resetGame(element.children[1]);
-        countResultX[index] = 0// очистка массива
-        countResult0[index] = 0 // очистка массива
+        element.style.background = "white";
+        element.dataset.container ="empty"
+        
         
   
     })
+    
 }
 
 
