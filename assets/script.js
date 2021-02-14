@@ -6,7 +6,10 @@ const scoreX =document.getElementById("countX");
 const alonePlayer =document.getElementById("1player");
 const two2Players =document.getElementById("2players");
 
-// практика в пррототипировании
+
+
+
+
 
 // reset
 const button = new Object({
@@ -44,6 +47,15 @@ HTMLDivElement.prototype.dataFullGo = function(childNum = 0){
    
     this.children[childNum].classList.remove("hide"); // 0
     this.dataFull("yellow")
+}
+
+
+
+Array.prototype.doZero = function (){
+    for(let i =0; i<=this.length-1;i++){
+        this[i] = 0
+    }
+    
 }
 
 
@@ -115,7 +127,10 @@ const countResult0 = new Array([
     0,0,0,0,0,0,0,0,0
 ])
 
-// Составление кейсов
+
+
+
+// Составление кейсов для определения побед
 
  let case1,case2,case3,case4,case5,case6,case7,case8;
         
@@ -226,13 +241,23 @@ alonePlayer.onclick =()=>{
 
 // запуск побед робота
 
+
+
+
+
+
 // метода проверки
+let check =str[0].dataset.container ==="empty"||
+      str[1].dataset.container ==="empty"||
+      str[2].dataset.container ==="empty"||
+      str[3].dataset.container ==="empty"||
+      str[4].dataset.container ==="empty"||
+      str[5].dataset.container ==="empty"||
+      str[6].dataset.container ==="empty"||
+      str[7].dataset.container ==="empty"||
+      str[8].dataset.container ==="empty";
 
-
-
-// str[0].dataset.container ==="empty"
-
-
+      
 
  
   function randoomRobot( index,childNum) {
@@ -242,6 +267,8 @@ alonePlayer.onclick =()=>{
     function getRandomFloat(min, max) {
         return Math.floor(Math.random() * (max - min) + min);
       }
+
+     
       let ranNum = getRandomFloat(0, 8);
      
      element2 = str[ranNum];
@@ -266,7 +293,7 @@ alonePlayer.onclick =()=>{
     str[5].dataset.container ==="empty"||
     str[6].dataset.container ==="empty"||
     str[7].dataset.container ==="empty"||
-    str[8].dataset.container ==="empty"){
+    str[8].dataset.container ==="empty" &&  (scoreZero.innerHTML ===0 && scoreX === 0)){
         randoomRobot(index,childNum)
     
   } 
@@ -280,6 +307,8 @@ alonePlayer.onclick =()=>{
   
     
 }
+
+
 
   
 
@@ -403,18 +432,41 @@ function messageWin(num1,num2){
              countResult0[index] = 0
              resetRound();
              
-             scoreX.textContent++
+             scoreX.textContent++;
+             element.dataset.container ="empty";
              
          } else if (num2===3){
             alert("Победа ноликов");
 
             countResult0[index] = 0// очистка массива
             countResultX[index] = 0
+            countResult0.doZero();
+            countResultX.doZero();
             resetRound();
             
-            scoreZero.textContent++
+            scoreZero.textContent++;
+            element.dataset.container ="empty";
             
-         }
+         } // переделать условие ветки:
+        //   else if((num1 !==3 && num2!==3) && (str[0].dataset.container ==="full"&& 
+        //   str[1].dataset.container ==="full"&& 
+        //   str[2].dataset.container ==="full"&& 
+        //   str[3].dataset.container ==="full"&& 
+        //   str[4].dataset.container ==="full"&& 
+        //   str[5].dataset.container ==="full"&& 
+        //   str[6].dataset.container ==="full"&& 
+        //   str[7].dataset.container ==="full"&& 
+        //   str[8].dataset.container ==="full") ) {
+
+        //     alert("Ничья");
+        //     element.dataset.container ="empty";
+        //     countResult0[index] = 0// очистка массива
+        //     countResultX[index] = 0
+        //     countResult0.doZero();
+        //     countResultX.doZero();
+        //     resetRound();
+
+        //  }
      }
 }
 
@@ -425,17 +477,8 @@ function messageWin(num1,num2){
 
 //  сброс игры
 button.source.onclick = ()=>{
-    
-   
-    
     resetAll();
-
-    
-    
-    
-        
-       
-    }
+}
 
 
 
@@ -443,6 +486,8 @@ button.source.onclick = ()=>{
         resetRound();
         scoreZero.textContent=0;
         scoreX.textContent=0;
+        countResult0.doZero();
+        countResultX.doZero();
         flag1 = false;
         flag2 = false;
 
@@ -457,12 +502,8 @@ function resetRound(){
         button.resetGame(element.children[0]);
         button.resetGame(element.children[1]);
         element.style.background = "white";
-        element.dataset.container ="empty"
-        
-        
-  
+        element.dataset.container ="empty";
     })
-    
 }
 
 
