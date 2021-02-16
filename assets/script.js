@@ -7,6 +7,14 @@ const alonePlayer =document.getElementById("1player");
 const two2Players =document.getElementById("2players");
 
 
+// статусы и состояния
+const empty = "empty";
+const full = "full";
+const hide = "hide";
+const checked = "checked";
+const disabled = "disabled";
+
+
 
 
 
@@ -428,18 +436,19 @@ function messageWin(num1,num2){
          if(num1===3){
              alert("Победа крестиков");
 
-             countResultX[index] = 0// очистка массива
-             countResult0[index] = 0
+            //  countResultX[index] = 0// очистка массива
+            //  countResult0[index] = 0
              resetRound();
-             
+            countResult0.doZero();
+            countResultX.doZero();
              scoreX.textContent++;
              element.dataset.container ="empty";
              
          } else if (num2===3){
             alert("Победа ноликов");
 
-            countResult0[index] = 0// очистка массива
-            countResultX[index] = 0
+            // countResult0[index] = 0// очистка массива
+            // countResultX[index] = 0
             countResult0.doZero();
             countResultX.doZero();
             resetRound();
