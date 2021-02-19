@@ -27,17 +27,19 @@ const button = new Object({
 })
 
 Object.prototype.removeDisable = function(){
-    button.source.removeAttribute("disabled")
+    this.removeAttribute("disabled")
+    
+}
+Object.prototype.addDisable = function(){
+    this.setAttribute("disabled","disabled");
 }
 
 
 Object.prototype.resetGame = function(element){
     element.classList.add("hide");
-
-    
 }
 
-button.removeDisable();
+
 
 
 HTMLDivElement.prototype.classToggle = function(num1,num2){
@@ -193,6 +195,7 @@ alonePlayer.onclick =()=>{
    
     flag1 = true;
     flag2 = false;
+    two2Players.addDisable(); 
     
 
     str.forEach((element,index)=>{
@@ -235,9 +238,7 @@ alonePlayer.onclick =()=>{
                     }   
 
         
-                }   else{
-                    return
-                }    
+                }     
              })
     })
 
@@ -327,6 +328,7 @@ two2Players.onclick =()=>{
     flag1 = false;
     flag2 = true;
     twoPlayers();
+    alonePlayer.addDisable(); 
     
     
 } 
@@ -349,7 +351,8 @@ function twoPlayers(){
                 ){
                     cross.removeAttribute("checked")
                     round.setAttribute("checked","checked")
-                    element.classToggle(0,1); // смотри прототипирование
+                    element.classToggle(0,1);
+                    element.dataFull("yellow") // смотри прототипирование
                     // element.children[0].classList.remove("hide"); // 0
                     //  element.children[1].classList.add("hide");
                     }
@@ -359,7 +362,8 @@ function twoPlayers(){
                     
                     round.removeAttribute("checked")
                     cross.setAttribute("checked","checked")
-                    element.classToggle(1,0);  // смотри прототипирование
+                    element.classToggle(1,0);
+                    element.dataFull("grey")  // смотри прототипирование
                     // element.children[1].classList.remove("hide"); //1
                     //  element.children[0].classList.add("hide");
                     
@@ -375,6 +379,7 @@ function twoPlayers(){
         })
     
 }
+
 
  
 // Победы и системные сообщния
@@ -421,6 +426,11 @@ caseX8 =countResultX[2]+countResultX[4]+ countResultX[6];
    case07 =countResult0[0]+countResult0[4]+ countResult0[8];
   case08 =countResult0[2]+countResult0[4]+ countResult0[6];
 
+
+
+
+
+
 messageWin(caseX1,case01);
 messageWin(caseX2,case02);
 messageWin(caseX3,case03);
@@ -433,49 +443,67 @@ messageWin(caseX8,case08);
 // Информация для модального окна
 function messageWin(num1,num2){
     
+    
+    for(let x of countResultX){
+        if(x === NaN){
+            console.log(x);
+        }
+    }
+    
+    for(let y of countResult0){
+        if(y === NaN){
+            console.log(y);
+        }
+    }
+
          if(num1===3){
              alert("Победа крестиков");
-
-            //  countResultX[index] = 0// очистка массива
-            //  countResult0[index] = 0
+             console.log(` до:  число  X: ${num1}, число  0: ${num2}`)
+             num1 = 0;
+             num2 = 0;
              resetRound();
             countResult0.doZero();
             countResultX.doZero();
              scoreX.textContent++;
              element.dataset.container ="empty";
-             
+             console.log(` после: число  X: ${num1}, число 0: ${num2}`)
          } else if (num2===3){
             alert("Победа ноликов");
-
-            // countResult0[index] = 0// очистка массива
-            // countResultX[index] = 0
+            console.log(` до:  число  X: ${num1}, число  0: ${num2}`)
+            num1 = 0;
+             num2 = 0;
+         
             countResult0.doZero();
             countResultX.doZero();
             resetRound();
             
             scoreZero.textContent++;
             element.dataset.container ="empty";
-            
-         } // переделать условие ветки:
-        //   else if((num1 !==3 && num2!==3) && (str[0].dataset.container ==="full"&& 
-        //   str[1].dataset.container ==="full"&& 
-        //   str[2].dataset.container ==="full"&& 
-        //   str[3].dataset.container ==="full"&& 
-        //   str[4].dataset.container ==="full"&& 
-        //   str[5].dataset.container ==="full"&& 
-        //   str[6].dataset.container ==="full"&& 
-        //   str[7].dataset.container ==="full"&& 
-        //   str[8].dataset.container ==="full") ) {
+            console.log(` после: число  X: ${num1}, число 0: ${num2}`)
+         } 
+          if(
+            num1===NaN  && num2===NaN && str[0].dataset.container ==="full" && 
+            str[1].dataset.container ==="full" && 
+            str[2].dataset.container ==="full" && 
+            str[3].dataset.container ==="full" && 
+            str[4].dataset.container ==="full" && 
+            str[5].dataset.container ==="full" && 
+            str[6].dataset.container ==="full" && 
+            str[7].dataset.container ==="full" && 
+            str[8].dataset.container ==="full") {
+                console.log(` до:  число  X: ${num1}, число  0: ${num2}`)
+            num1 = 0;
+            num2 = 0;
+            alert("Ничья");
+            element.dataset.container ="empty";
+            countResult0.doZero();
+            countResultX.doZero();
+            resetRound();
+             console.log(` после: число  X: ${num1}, число 0: ${num2}`)
 
-        //     alert("Ничья");
-        //     element.dataset.container ="empty";
-        //     countResult0[index] = 0// очистка массива
-        //     countResultX[index] = 0
-        //     countResult0.doZero();
-        //     countResultX.doZero();
-        //     resetRound();
 
-        //  }
+         }
+         
      }
 }
 
@@ -487,6 +515,8 @@ function messageWin(num1,num2){
 //  сброс игры
 button.source.onclick = ()=>{
     resetAll();
+    alonePlayer.removeDisable();
+    two2Players.removeDisable()
 }
 
 
@@ -499,10 +529,7 @@ button.source.onclick = ()=>{
         countResultX.doZero();
         flag1 = false;
         flag2 = false;
-
-        
-    
-        }
+}
 
 
 

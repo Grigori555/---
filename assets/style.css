@@ -171,6 +171,10 @@ button {
     background-color: transparent;
 }
 
+button:disabled{
+    background-color: goldenrod
+}
+
 .reset_game{
     height: 30px;
     background-color: aqua;
